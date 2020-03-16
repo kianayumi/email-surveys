@@ -16,7 +16,7 @@ const app = express();
 
 // Route handler
 app.get('/', (rec, res) => {
-  res.send({ hi: 'there' });
+  res.send({ Peter: 'I love you' });
 });
 
 // Dynamically figures out which port to listen to
