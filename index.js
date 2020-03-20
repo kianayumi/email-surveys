@@ -1,5 +1,5 @@
 // ** to start server : "npm run dev" (nodemon will update server)
-// ** to deploy : "git add .", "git commit -m '...'", "git push heroku master"
+// ** to deploy : "git add .", "git commit -m '...'", "git push heroku master", "heroku open"
 
 // Helper modules and business logic
 
