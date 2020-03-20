@@ -36,10 +36,10 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: keys.googleRedirectURI,
+      callbackURL: keys.googleRedirectURI
       // If our request runs thru a proxy, continue with the req
       // Without, URL may change (EX: http to https), and 404 error
-      proxy: true
+      // proxy: true
     },
     // User's profile info that was requested is returned
     (accessToken, refreshToken, profile, done) => {
