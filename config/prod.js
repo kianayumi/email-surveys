@@ -6,5 +6,6 @@ module.exports = {
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   mongoURI: process.env.MONGO_URI,
   // Random string of chars
-  cookieKey: process.env.COOKIE_KEY
+  cookieKey: process.env.COOKIE_KEY,
+  googleRedirectURI: 'https://floating-fjord-33999.herokuapp.com/'
 };
