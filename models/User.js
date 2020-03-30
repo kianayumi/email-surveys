@@ -6,7 +6,10 @@ const { Schema } = mongoose;
 
 // Describes what every record looks like
 const userSchema = new Schema({
-  googleId: String
+  googleId: String,
+  // When creating schemas, either set val or create obj for other configs (want
+  // to set default val to 0, then update w payments)
+  credits: { type: Number, default: 0 }
 });
 
 // Telling mongoose that we want to create a new collection called users

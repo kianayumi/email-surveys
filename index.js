@@ -1,5 +1,5 @@
 // ** to start server : "npm run dev" (nodemon will update server)
-// ** to deploy : "git add .", "git commit -m '...'", "git push heroku master", "heroku open"
+// ** to deploy : (in client) "npm run build", "git add .", "git commit -m '...'", "git push heroku master", "heroku open"
 
 // Helper modules and business logic
 
@@ -16,6 +16,9 @@
 // and generate responses.
 
 // Using common JS modules bc Node doesn't support import... (ES6)
+// Express server sends JSON data : MongoDB > server > JSON > browser
+// React server send frontend assets (Express server sends data assets)
+// ** to start Express server : (in "scripts" { "client": "npm run start --prefix client" })
 const express = require('express');
 //
 const mongoose = require('mongoose');
@@ -24,6 +27,7 @@ const mongoose = require('mongoose');
 // req.session data
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 // Don't need to set it to a variable bc file not returning anything
 // Order is important! Need instance of user before using passport
@@ -36,6 +40,12 @@ const app = express();
 
 // 'app.use()' fires up middleware (small fxns used to modify incoming reqs to
 // app before being sent to route handlers)
+
+// middleware can intercept every incoming req & can be instructed to handle a
+// single req
+
+// All reqs made to body (PUT, POST, PATCH) are assigned to req.body
+app.use(bodyParser.json());
 
 app.use(
   cookieSession({
@@ -53,8 +63,23 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Instead of setting to var since only using once
-// authRoutes file exports fxn & immediately calls w app
+// routes files exports fxns & immediately calls w app
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+
+// Config to make sure that Express runs correctly in prod enviro
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up prod assets (main.js or main.css)
+  // If route GET req comes in & don't have route handler, look in client/build
+  // directory to see if a file matches, if not then continues
+  app.use(express.static('client/build'));
+  // Express will serve up index.html if route not recognized
+  // ~ catch-all if no other route w/in code can handle req
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.send(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Dynamically figures out which port to listen to
 // When Heroku runs app & injects environment variables (vars set in underlying

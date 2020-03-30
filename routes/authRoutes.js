@@ -14,15 +14,23 @@ module.exports = app => {
   );
 
   // Converting user code into a user profile
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    // After user successfully logs in, where to go next?
+    (req, res) => {
+      // Responds to browser, redirecting to URL
+      res.redirect('/surveys');
+    }
+  );
 
   // When user makes get request to routes, sign them out
   app.get('/api/logout', (req, res) => {
     // Passport automatially attaches logout fxn to req obj
     // Takes cookie w user's id & takes away id (not associated with user)
     req.logout();
-    // Shows user that they're no longer signed in
-    res.send(req.user);
+    // Takes user to homepage after logging out
+    res.redirect('/');
   });
 
   // Display the user which is currently signed in

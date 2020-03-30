@@ -1,0 +1,18 @@
+// Write a fxn to retrieve a blob of JSON (AJAX req), using 'fetch' fxn
+
+// function fetchAlbums() {
+//   fetch('http://rallycoding.herokuapp.com/api/music_albums')
+//     .then(res => res.json())
+//     .then(json => console.log(json));
+// }
+
+// 1. ID async code (returns Promise), preface w 'async'
+// 2. ID statements returning Promise, preface w 'await' & set to var
+
+async function fetchAlbums() {
+  const res = await fetch('http://rallycoding.herokuapp.com/api/music_albums')
+  const json = await res => res.json())
+  console.log(json)
+}
+
+fetchAlbums();
