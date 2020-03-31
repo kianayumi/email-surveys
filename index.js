@@ -32,6 +32,7 @@ const keys = require('./config/keys');
 // Don't need to set it to a variable bc file not returning anything
 // Order is important! Need instance of user before using passport
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
@@ -66,6 +67,7 @@ app.use(passport.session());
 // routes files exports fxns & immediately calls w app
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // Config to make sure that Express runs correctly in prod enviro
 if (process.env.NODE_ENV === 'production') {
