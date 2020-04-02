@@ -6,7 +6,6 @@
 // Helps w AJAX reqs
 import axios from 'axios';
 import { FETCH_USER } from './types';
-import { read } from 'fs';
 
 export const fetchUser = () =>
   // Dispatch action helps w async (want function to run after axios req completes)
@@ -19,5 +18,5 @@ export const fetchUser = () =>
 export const handleToken = token => async dispatch => {
   // Sending data to backend
   const res = await axios.post('/api/stripe', token);
-  dispatch({ type: FETCH_USER, payload: read.data });
+  dispatch({ type: FETCH_USER, payload: res.data });
 };

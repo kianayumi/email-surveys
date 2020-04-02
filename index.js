@@ -67,7 +67,7 @@ app.use(passport.session());
 // routes files exports fxns & immediately calls w app
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
-require('./routes/surveyRoutes')(app);
+require('./services/emailTemplates/surveyTemplate')(app);
 
 // Config to make sure that Express runs correctly in prod enviro
 if (process.env.NODE_ENV === 'production') {

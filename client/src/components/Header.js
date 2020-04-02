@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Payments from './Payments';
 
-class Header extends React.Component {
+class Header extends Component {
   renderContent() {
     switch (this.props.auth) {
       case null:
@@ -49,11 +49,9 @@ class Header extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ auth }) {
   // Only care about auth prop (from authReducer)
-  return {
-    auth: {}
-  };
+  return { auth };
 }
 
 export default connect(mapStateToProps)(Header);

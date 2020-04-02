@@ -27,5 +27,6 @@ module.exports = app => {
     // Use 'new' keyword when wanting to create new instance of a class
     // Args are survey content and HTML to show in body of email
     const mailer = new Mailer(survey, surveyTemplate(survey));
+    mailer.send();
   });
 };

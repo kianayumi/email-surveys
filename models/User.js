@@ -13,6 +13,7 @@ const userSchema = new Schema({
 });
 
 // Telling mongoose that we want to create a new collection called users
+// One arg = fetch something out of Mongoose
 // Two args = load something into Mongoose
 mongoose.model('users', userSchema);
 
