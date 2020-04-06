@@ -36,6 +36,7 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
+      // callbackURL: keys.googleRedirectURI,
       callbackURL: '/auth/google/callback',
       proxy: true
       // If our request runs thru a proxy, continue with the req

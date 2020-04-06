@@ -27,9 +27,9 @@ class Mailer extends helper.Mail {
     this.addClickTracking();
     this.addRecipients();
   }
-  formatAddresses(reciepients) {
+  formatAddresses(recipients) {
     // For every email, extracting email prop
-    return reciepients.map(({ email }) => {
+    return recipients.map(({ email }) => {
       // Formatting w email helper
       return new helper.Email(email);
     });
@@ -57,7 +57,7 @@ class Mailer extends helper.Mail {
       body: this.toJSON()
     });
     const response = await this.sgApi.API(request);
-    return respond;
+    return response;
   }
 }
 

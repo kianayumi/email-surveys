@@ -35,7 +35,11 @@ require('./models/User');
 require('./models/Survey');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+});
 
 const app = express();
 
@@ -67,6 +71,7 @@ app.use(passport.session());
 // routes files exports fxns & immediately calls w app
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+// require('./routes/surveyRoutes')(app);
 require('./services/emailTemplates/surveyTemplate')(app);
 
 // Config to make sure that Express runs correctly in prod enviro
@@ -79,7 +84,7 @@ if (process.env.NODE_ENV === 'production') {
   // ~ catch-all if no other route w/in code can handle req
   const path = require('path');
   app.get('*', (req, res) => {
-    res.send(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
