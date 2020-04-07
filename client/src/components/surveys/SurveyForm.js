@@ -7,34 +7,12 @@ import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
 import SurveyNew from './SurveyNew';
-
-const FIELDS = [
-  {
-    label: 'Survey Title',
-    name: 'title',
-    missingInputError: 'Please provide a title.'
-  },
-  {
-    label: 'Subject Line',
-    name: 'subject',
-    missingInputError: 'Please provide a subject.'
-  },
-  {
-    label: 'Email Body',
-    name: 'body',
-    missingInputError: 'Please provide an email body.'
-  },
-  {
-    label: 'Recipient List',
-    name: 'emails',
-    missingInputError: 'Please provide recipient email addresses.'
-  }
-];
+import formFields from './formFields';
 
 class SurveyForm extends Component {
   renderFields() {
     // Iterate over FIELDS array & carry out fxn, returned from renderFields fxn
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
@@ -81,7 +59,7 @@ function validate(values) {
   errors.emails = validateEmails(values.emails || '');
 
   // For every field w/in FIELDS arr, execute arrow fxn
-  _.each(FIELDS, ({ name, missingInputError }) => {
+  _.each(formFields, ({ name, missingInputError }) => {
     // Looking at value of 'name' at RUN TIME
     // values.name refers to name prop
     if (!values[name]) {
@@ -92,6 +70,12 @@ function validate(values) {
   return errors;
 }
 // reduxForm takes in single arg (form)
+// 'destroyOnUnmount:false' allows forms to persist (when page changes,
+// reduxForm auto clears forms for memory) (we want persistence for "user can
+// review form inputs" feature)
+// 'form: 'surveyForm'' tells redux-form how to manage a particular form w/in
+// the form reducer (when user has multiple forms, want to make sure that each
+// one's form inputs stay with that form)
 export default reduxForm({
   validate,
   form: 'surveyForm',
