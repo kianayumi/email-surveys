@@ -52,9 +52,7 @@ class SurveyForm extends Component {
       <div>
         {/* Passing function into onSubmit means that it will auto be called when
         form is submitted */}
-        <form
-          onSubmit={this.props.handleSubmit(() => this.props.onSurveySubmit())}
-        >
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
           <Link to="/surveys" className="red btn-flat white-text">
             Cancel
@@ -94,4 +92,8 @@ function validate(values) {
   return errors;
 }
 // reduxForm takes in single arg (form)
-export default reduxForm({ validate, form: 'surveyForm' })(SurveyForm);
+export default reduxForm({
+  validate,
+  form: 'surveyForm',
+  destroyOnUnmount: false
+})(SurveyForm);
