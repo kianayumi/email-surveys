@@ -6,6 +6,7 @@ import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
+import SurveyNew from './SurveyNew';
 
 const FIELDS = [
   {
@@ -51,7 +52,9 @@ class SurveyForm extends Component {
       <div>
         {/* Passing function into onSubmit means that it will auto be called when
         form is submitted */}
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form
+          onSubmit={this.props.handleSubmit(() => this.props.onSurveySubmit())}
+        >
           {this.renderFields()}
           <Link to="/surveys" className="red btn-flat white-text">
             Cancel
